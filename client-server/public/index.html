@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>Demo Client CORS - Sgart.it</title>
+  </head>
+
+  <body>
+    <h1>Demo chiamate AJAX su un dominio differente</h1>
+
+    <h3>Risultato chiamata</h3>
+    <hr />
+    <div id="result"></div>
+    <hr />
+    <button id="btn-reload" type="button">Reload</button>
+    <script>
+      function load() {
+        const elem = document.getElementById("result");
+
+        //fetch("http://cors.localhost:3000/", {
+        fetch("http://api.sgart.it:3000", {
+          method: "POST",
+          mode: "cors", // parametro vincolante per le chiamate cross domain
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: "Bearer mH4eyJdb...r2E2JRHDcdfxjoYtg",
+          },
+          //body: JSON.stringify({ d: 1 }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            elem.innerHTML = JSON.stringify(data);
+          })
+          .catch((error) => {
+            console.error(error);
+            elem.innerHTML = error;
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("btn-reload")
+          .addEventListener("click", function () {
+            load();
+          });
+        load();
+      });
+    </script>
+  </body>
+</html>
