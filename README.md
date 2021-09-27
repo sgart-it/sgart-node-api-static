@@ -1,6 +1,6 @@
-#sgart-node-api-static
+# sgart-node-api-static
 
-# installazione
+## installazione
 
 richiede node.js (testato con v14.17.6)
 
@@ -9,14 +9,14 @@ nelle cartelle .\client-server e .\api-server eseguire
 npm install
 
 
-## host
+### host
 modificare il file C:\Windows\System32\drivers\etc\host e aggiungere
 
 127.0.0.1	static.sgart.it
 127.0.0.1	api.sgart.it
 
 
-# esecuzione
+### esecuzione
 
 runall.cmd
 
@@ -24,12 +24,12 @@ richiamare il client con http://static.sgart.it:8080
 (il server risponde alla url http://api.sgart.it:3000)
 
 
-# note 
+## note 
 
 il web server (client-server) con il codice html (statico) non deve girare su localhost altrimenti il browser blocca le chiamate CORS.
 
 
-# errori
+## errori
 
 se nella developer console compare l'errore
 
