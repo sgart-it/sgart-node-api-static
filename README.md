@@ -13,6 +13,7 @@ npm install
 modificare il file C:\Windows\System32\drivers\etc\host e aggiungere
 
 127.0.0.1	static.sgart.it
+
 127.0.0.1	api.sgart.it
 
 
