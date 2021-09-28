@@ -15,7 +15,7 @@
       function load() {
         const elem = document.getElementById("result");
 
-        //fetch("http://cors.localhost:3000/", {  // non funziona per le restrizioni del browsers
+        //fetch("http://cors.localhost:3000/", {  // non funziona per le restrizioni del browser
         fetch("http://api.sgart.it:3000", {
           method: "POST",
           mode: "cors", // parametro vincolante per le chiamate cross domain
@@ -23,7 +23,7 @@
             "Content-Type": "application/json",
             //Authorization: "Bearer mH4eyJdb...r2E2JRHDcdfxjoYtg",
           },
-          //body: JSON.stringify({ d: 1 }),
+          body: JSON.stringify({ value: 1 }),
         })
           .then((response) => response.json())
           .then((data) => {
