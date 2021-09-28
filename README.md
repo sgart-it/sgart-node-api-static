@@ -1,5 +1,9 @@
 # sgart-node-api-static
 
+Demo applicazione statica in html/js che usa delle api su un diverso dominio tramite CORS
+
+https://www.sgart.it
+
 ## installazione
 
 richiede node.js (testato con v14.17.6)
