@@ -8,7 +8,7 @@ http.createServer(function (request, response) {
     console.log('request starting ' + request.url + '...');	//visualizzo nella console
  
     const headers = {
-        'Access-Control-Allow-Origin': 'http://static.sgart.it:8080', // non mettere la slash finale
+        'Access-Control-Allow-Origin': 'http://static.sgart.it:8080', // deve coincidere con la url del dominio chiamante senza slash finale
         'Access-Control-Allow-Headers': 'Content-Type,Authorization',
         'Access-Control-Allow-Methods': 'OPTIONS,GET,POST',
         'Access-Control-Max-Age': 86400, // 1 days * 24 ore * 60 minuti * 60 secondi

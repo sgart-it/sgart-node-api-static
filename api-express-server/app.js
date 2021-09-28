@@ -17,7 +17,7 @@ const rootRouter = require('./routes/root');
 const app = express();
 
 app.use(cors({
-    origin: settings.cors.origin,
+    origin: settings.cors.origin,   // deve coincidere con la url del dominio chiamante senza slash finale
     allowedHeaders: settings.cors.allowedHeaders,
     methods: settings.cors.methods,
     maxAge: settings.cors.maxAge
