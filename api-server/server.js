@@ -28,7 +28,7 @@ http.createServer(function (request, response) {
     }
 
     if (['GET', 'POST'].indexOf(request.method) > -1) {
-        const content = { date: new Date() };
+        const content = { date: new Date(), server: 'node' };
         console.log('content', content);
 
         response.writeHead(200, headers);

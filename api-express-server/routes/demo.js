@@ -3,14 +3,30 @@ const cors = require("cors");
 
 var router = express.Router();
 
-/* GET users listing. */
+
+
+router.get('/', cors(), function (req, res, next) {
+  var param = req.body;
+  console.log('param:', param);
+
+  const content = {
+    date: new Date(),
+    param: param,
+    server: 'espress'
+  };
+  console.log('content:', content);
+
+  res.send('OK Runnig express');
+});
+
 router.post('/', cors(), function (req, res, next) {
   var param = req.body;
   console.log('param:', param);
 
   const content = {
     date: new Date(),
-    param: param
+    param: param,
+    server: 'espress'
   };
   console.log('content:', content);
 

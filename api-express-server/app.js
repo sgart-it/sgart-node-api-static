@@ -8,7 +8,7 @@ const settings = require('./appsettings.json');
 /**
  * routing definition
  */
-const rootRouter = require('./routes/root');
+const demoRouter = require('./routes/demo');
 //var usersRouter = require('./routes/users');
 
 /**
@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 //app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', rootRouter);
+app.use('/demo', demoRouter);
 //app.use('/users', usersRouter);
 
 module.exports = app;
