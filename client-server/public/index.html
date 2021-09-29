@@ -11,7 +11,12 @@
     <div id="result"></div>
     <hr />
     <button id="btn-reload" type="button">Reload</button>
-    <p style="color:red">Attenzione richiamare con http://static.sgart.it:8080 dopo aver configurato il file host locale</p>
+    <div style="color:red">
+      <p>Attenzione impostare nel file C:\Windows\System32\drivers\etc\hosts 
+        <p>127.0.0.1 static.sgart.it</p>
+        <p>poi richiamare la pagina con <a href="http://static.sgart.it:8080">http://static.sgart.it:8080</a>.</p>
+      </p>
+    </div>
     <script>
       function load() {
         const elem = document.getElementById("result");

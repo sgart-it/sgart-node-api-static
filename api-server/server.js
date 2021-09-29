@@ -12,7 +12,7 @@ http.createServer(function (request, response) {
         'Access-Control-Allow-Headers': 'Content-Type,Authorization',
         'Access-Control-Allow-Methods': 'OPTIONS,GET,POST',
         'Access-Control-Max-Age': 86400, // 1 days * 24 ore * 60 minuti * 60 secondi
-        'Vary': 'Origin, Access-Control-Request-Headers, Access-Control-Request-Method'
+        //'Vary': 'Origin, Access-Control-Request-Headers, Access-Control-Request-Method'
         /* altri header se necessario */
     };
 
