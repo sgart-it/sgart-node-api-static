@@ -12,6 +12,9 @@ nelle cartelle .\client-server e .\api-server eseguire
 
 npm install
 
+nella cartella .\api-net5-server
+
+dotnet restore
 
 ### host
 modificare il file C:\Windows\System32\drivers\etc\host e aggiungere

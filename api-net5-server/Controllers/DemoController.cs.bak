@@ -23,13 +23,13 @@ namespace Sgart.Api.Server.Controllers
         [HttpGet]
         public string Get()
         {
-            return $"OK Runnig API .NET 5, v. {Constants.VERSION}";
+            return "OK Runnig .NET 5";
         }
 
         [HttpPost]
         public ResultDTO Post([FromBody] ParamDTO p)
         {
-            _logger.LogTrace("Post");
+            Console.WriteLine("Post");
             
             return new ResultDTO
             {
