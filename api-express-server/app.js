@@ -9,6 +9,7 @@ const settings = require('./appsettings.json');
  * routing definition
  */
 const demoRouter = require('./routes/demo');
+const authRouter = require('./routes/auth');
 //var usersRouter = require('./routes/users');
 
 /**
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 //app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/demo', demoRouter);
+app.use('/auth', authRouter);
 //app.use('/users', usersRouter);
 
 module.exports = app;

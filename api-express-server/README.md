@@ -8,3 +8,7 @@ npm install
 # run the app:
 SET DEBUG=api-express-server:* 
 npm start
+
+# note
+
+usa la libreria jsonwebtoken
