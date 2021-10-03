@@ -4,11 +4,14 @@ Demo applicazione statica in html/js che usa delle api su un diverso dominio tra
 
 https://www.sgart.it
 
+Aggiunto demo Token JWT
+
+
 ## installazione
 
-richiede node.js (testato con v14.17.6)
+richiede node.js (testato con v14.17.6) e .Net 5
 
-nelle cartelle .\client-server e .\api-server eseguire
+nelle cartelle .\client-server, .\api-server e .\api-express-server eseguire
 
 npm install
 
@@ -16,7 +19,9 @@ nella cartella .\api-net5-server
 
 dotnet restore
 
+
 ### host
+
 modificare il file C:\Windows\System32\drivers\etc\host e aggiungere
 
 127.0.0.1	static.sgart.it
@@ -24,12 +29,14 @@ modificare il file C:\Windows\System32\drivers\etc\host e aggiungere
 127.0.0.1	api.sgart.it
 
 
-### esecuzione
+### esecuzione demo
 
-runall.cmd
+runall.cmd (client javascript + node js)
+runexpress.cmd (client javascript + node js express)
+runnet5.cmd (client javascript + .Net 5 C#)
 
 richiamare il client con http://static.sgart.it:8080
-(il server risponde alla url http://api.sgart.it:3000)
+(le API server rispondono alla url http://api.sgart.it:3000)
 
 
 ## note 
