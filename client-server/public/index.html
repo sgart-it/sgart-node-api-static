@@ -45,6 +45,7 @@
           <label>Username <input type="text" id="username"></label>
           <label>Password <input type="password" id="password"></label>
           <button type="submit">Login</button>
+          <button type="text" id="btn-clear-token">Clear token</button>
           <p id="result-login"></p>
           <p>Utenti: user1/pwd, user2/pwd2, user3/pwd3</p>
         </form>
@@ -101,9 +102,15 @@
       function getToken(){
         return _tokenStorage.getItem(_tokenKey);
       }
+
+      function clearToken(){
+        return setToken(null);
+      }
+
       return {
         set: setToken,
-        get: getToken
+        get: getToken,
+        clear: clearToken
       }
     })();
 
@@ -131,7 +138,7 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
+            console.log(`Token valid: ${data.valid}`);
             elemResult.innerHTML = JSON.stringify(data);
             if(data.valid === true) {
               
@@ -167,7 +174,16 @@
             "Authorization": "Bearer " + token,
           }
         })
-          .then((response) => response.json())
+          .then((response) => {
+            if(response.ok) {
+              return response.json();
+            } else {
+              return {
+                status: response.status,
+                message: response.statusText
+              }
+            }
+          })
           .then((data) => {
             console.log(data);
             elemResult.innerHTML = JSON.stringify(data);
@@ -189,6 +205,8 @@
         document.getElementById("btn-reload").addEventListener("click", handleLoadAnonymous);
         document.getElementById("form-login").addEventListener("submit", handleLogin);
         document.getElementById("btn-reload-auth").addEventListener("click", handleLoadAuth);
+        document.getElementById("btn-clear-token").addEventListener("click", function(){ jwtToken.clear(); });
+        
         
         handleLoadAnonymous();
       });

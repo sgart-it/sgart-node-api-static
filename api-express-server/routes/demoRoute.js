@@ -1,13 +1,10 @@
 var express = require('express');
-const cors = require("cors");
 
-var router = express.Router();
+const router = express.Router();
 
-
-
-router.get('/', cors(), function (req, res, next) {
+router.get('/', function (req, res, next) {
   var param = req.body;
-  console.log('param:', param);
+  console.log('get param:', param);
 
   const content = {
     date: new Date(),
@@ -19,9 +16,9 @@ router.get('/', cors(), function (req, res, next) {
   res.send('OK Runnig express');
 });
 
-router.post('/', cors(), function (req, res, next) {
+router.post('/', function (req, res, next) {
   var param = req.body;
-  console.log('param:', param);
+  console.log('post param:', param);
 
   const content = {
     date: new Date(),
