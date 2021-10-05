@@ -43,7 +43,7 @@ if (typeof fetch === 'undefined') {
      * parametro header.mode: non gestito, il default è 'cors'
      * @param {*} url 
      * @param {*} options es. {method: "POST", mode: "cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: 1 }) }
-     * @returns un oggetto cone metodi then(...) e catch(...)
+     * @returns un oggetto con metodi then(...) e catch(...)
      */
     var fetch = function (url, options) {
         console.log('fetch polyfill by https://www.sgart.it');
@@ -87,7 +87,7 @@ if (typeof fetch === 'undefined') {
             }
         };
 
-        var method = options.method ? options.method : 'GET';
+        var method = options && options.method ? options.method : 'GET';
         xHttp.open(method, url, true);
         if (options && options.headers) {
             for (var key in options.headers) {
@@ -96,7 +96,7 @@ if (typeof fetch === 'undefined') {
             }
         }
 
-        if (options.body) {
+        if (options && options.body) {
             var data = options.body;
             xHttp.send(data);
         } else {

@@ -71,22 +71,22 @@ function handleLoadAnonymousXMLHttpRequest() {
 
     const elemResult = document.getElementById("result-2");
     elemResult.innerHTML = "Attendi ...";
-    
-    var url=BASE_API + "/demo";
+
+    var url = BASE_API + "/demo";
 
     var xHttp = new XMLHttpRequest();
     xHttp.onreadystatechange = function () {
-      if (this.readyState === 4) {
-        if (this.status === 200) {
-            var data = JSON.parse(this.responseText);
-            console.log(data);
-            elemResult.innerHTML = JSON.stringify(data);
-        } else {
-            var error = this.status + ' ' + this.responseText;
-            console.error(error);
-            elemResult.innerHTML = error;
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                var data = JSON.parse(this.responseText);
+                console.log(data);
+                elemResult.innerHTML = JSON.stringify(data);
+            } else {
+                var error = this.status + ' ' + this.responseText;
+                console.error(error);
+                elemResult.innerHTML = error;
+            }
         }
-      }
     };
     xHttp.open("POST", url, true);
     xHttp.setRequestHeader("Content-type", "application/json");
