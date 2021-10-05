@@ -29,17 +29,26 @@
         <p>poi richiamare la pagina con <a href="http://static.sgart.it:8080">http://static.sgart.it:8080</a>.</p>
       </p>
     </div>
-    <!-- Anonima -->
+    <!-- Anonima con fetch -->
     <hr>
     <h2>Risultato chiamata anonima</h2>
+    <p>Usa <b>fetch</b>, funziona su tutti i browser TRANNE Internet Explorer</p>
     <div>
       <button id="btn-reload" type="button">Reload</button> <span id="result">attendi...</span>
+    </div>
+    <hr>
+    <!-- Anonima con XMLHttpRequest -->
+    <h2>Risultato chiamata</h2>
+    <p>Usa <b>XMLHttpRequest</b>, funziona su tutti i browser ANCHE Internet Explorer</p>
+    <div>
+      <button id="btn-reload-2" type="button">Reload</button> <span id="result-2">attendi...</span>
     </div>
     <hr>
     <!-- JWT -->
     <h2>Demo JWT</h2>
     <div>
       <h3>Login</h3>
+      <p>Usa <b>fetch</b>, funziona su tutti i browser TRANNE Internet Explorer</p>
       <div>
         <form id="form-login">
           <label>Username <input type="text" id="username"></label>
@@ -53,163 +62,11 @@
     </div>
     <hr>
     <h3>Risulato chiamata autenticata (JWT)</h3>
+    <p>Usa <b>fetch</b>, funziona su tutti i browser TRANNE Internet Explorer</p>
     <div>
       <button id="btn-reload-auth" type="button">Reload</button> <span id="result-auth">prima fai login</span>
     </div>
-    <script>
-      const BASE_API = 'http://api.sgart.it:3000';
-
-      function handleLoadAnonymous() {
-        console.log('handleLoadAnonymous');
-
-        const elemResult = document.getElementById("result");
-        elemResult.innerHTML = "Attendi ...";
-
-        //fetch("http://cors.localhost:3000/", {  // non funziona per le restrizioni del browser
-        fetch(BASE_API + "/demo", {
-          method: "POST",
-          mode: "cors", // parametro vincolante per le chiamate cross domain
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({ value: 1 }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            elemResult.innerHTML = JSON.stringify(data);
-          })
-          .catch((error) => {
-            console.error(error);
-            elemResult.innerHTML = error;
-          });
-      }
-
-      // gestione storage token
-      const jwtToken = (function() {
-       const _tokenKey = 'token';
-       const _tokenStorage = sessionStorage; // per renderlo permanente localStorage
-      //N.B.
-      // sessionStorage: viene canellato alla chiusura del browser ma mantenuto al reload della pagina
-      // localStorage: rimane anche dopo la chiusura finchè non viene esplicitamente rimosso
-
-      function setToken(token) {
-        if(token===undefined || token===null || token ==="") {
-          _tokenStorage.removeItem(_tokenKey);
-          return;
-        }
-        _tokenStorage.setItem(_tokenKey, token);
-      }
-
-      function getToken(){
-        return _tokenStorage.getItem(_tokenKey);
-      }
-
-      function clearToken(){
-        return setToken(null);
-      }
-
-      return {
-        set: setToken,
-        get: getToken,
-        clear: clearToken
-      }
-    })();
-
-      // gestione login e get token JWT
-      function handleLogin(e) {
-        e.preventDefault();
-
-        console.log('handleLogin');
-
-        const elemResult = document.getElementById("result-login");
-        elemResult.innerHTML = "Attendi ...";
-
-        // cancello il valore moemorizzato
-        jwtToken.set(null);
-
-        const user = document.getElementById("username").value;
-        const pwd = document.getElementById("password").value;
-
-        fetch(BASE_API + "/auth/login", {
-          method: "POST",
-          mode: "cors", // parametro vincolante per le chiamate cross domain
-          headers: { "Content-Type": "application/json" },
-          // passo lo user name e la password ... tutto SEMPRE in HTTPS in PRODUZIONE
-          body: JSON.stringify({ username: user, password: pwd }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(`Token valid: ${data.valid}`);
-            elemResult.innerHTML = JSON.stringify(data);
-            if(data.valid === true) {
-              
-              jwtToken.set(data.token);
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-            elemResult.innerHTML = error;
-          });
-      }
-
-      // gestione chiamata autenticata con Bearer JWT
-      function handleLoadAuth() {
-        console.log('handleLoadAuth');
-
-        const elemResult = document.getElementById("result-auth");
-        elemResult.innerHTML = "Attendi ...";
-
-        // recupero il token alvato
-        var token = jwtToken.get();
-        if(token===undefined || token===null || token ===""){
-          elemResult.innerHTML = "Error il token è vuoto";
-          return;
-        }
-
-        fetch(BASE_API + "/secure/protected-data", {
-          method: "GET",
-          mode: "cors", // parametro vincolante per le chiamate cross domain
-          headers: {
-            "Content-Type": "application/json",
-            // passo nell'header il Bearer token JWT
-            "Authorization": "Bearer " + token,
-          }
-        })
-          .then((response) => {
-            if(response.ok) {
-              return response.json();
-            } else {
-              return {
-                status: response.status,
-                message: response.statusText
-              }
-            }
-          })
-          .then((data) => {
-            console.log(data);
-            elemResult.innerHTML = JSON.stringify(data);
-          })
-          .catch((error) => {
-            console.error(error);
-            elemResult.innerHTML = error;
-          });
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        var isLocalhost = location.hostname === "localhost" || location.hostname === "127.0.0.1";
-        if(isLocalhost === true){
-          console.log('%cAttenzione in localhost le chiamate CORS non funzionano', 'background-color: #f00; padding: 20px; color: #fff; font-family:bold; font-size: 2em');
-        }else{
-          document.getElementById("warning").style = 'display:none';
-        }
-
-        document.getElementById("btn-reload").addEventListener("click", handleLoadAnonymous);
-        document.getElementById("form-login").addEventListener("submit", handleLogin);
-        document.getElementById("btn-reload-auth").addEventListener("click", handleLoadAuth);
-        document.getElementById("btn-clear-token").addEventListener("click", function(){ jwtToken.clear(); });
-        
-        
-        handleLoadAnonymous();
-      });
-    </script>
+    <script src="/js/main.js"></script>
+    <!-- <script src="/js/main-ie.js"></script> -->
   </body>
 </html>
